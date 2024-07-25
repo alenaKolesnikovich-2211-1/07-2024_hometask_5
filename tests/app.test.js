@@ -144,4 +144,180 @@ describe('getTotal function', () => {
     expect(getTotal).toBeDefined();
     expect(typeof getTotal).toBe('function');
   });
+  it('checks based on example #1, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = 0;
+    expect(getTotal(param1, discount)).toBe(100);
+  });
+  it('checks based on example #2, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 1
+      }
+    ];
+    const discount = 0;
+    expect(getTotal(param1, discount)).toBe(10);
+  });
+  it('checks based on example #3, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 1
+      },
+      {
+        price: 10,
+        quantity: 9
+      }
+    ];
+    const discount = 0;
+    expect(getTotal(param1, discount)).toBe(100);
+  });
+  it('checks based on example #4, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 0
+      },
+      {
+        price: 10,
+        quantity: 9
+      }
+    ];
+    const discount = 0;
+    expect(getTotal(param1, discount)).toBe(90);
+  });
+  it('checks based on example #5, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = 10;
+    expect(getTotal(param1, discount)).toBe(90);
+  });
+  it('checks based on example #6, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = 100;
+    expect(getTotal(param1, discount)).toBe(0);
+  });
+  it('checks when discount == 1.25, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = 1.25;
+    expect(getTotal(param1, discount)).toBe(98.75);
+  });
+  it('checks when discount == 1 and items includes 3 keys, passes', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10,
+        name: "item1"
+      }
+    ];
+    const discount = 5;
+    expect(getTotal(param1, discount)).toBe(95);
+  });
+  it('checks when typeOf(discount) is String, fails', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = "5";
+    expect(() => getTotal(param1, discount)).toThrow("Скидка должна быть числом");
+  });
+  it('checks when typeOf(discount) is Boolean, fails', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = true;
+    expect(() => getTotal(param1, discount)).toThrow("Скидка должна быть числом");
+  });
+  it('checks when discount < 0, e.g "-5", fails', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = -1;
+    expect(() => getTotal(param1, discount)).toThrow("Процент скидки не может быть отрицательным");
+  });
+  it('checks when discount > 100, e.g "101", fails', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10
+      }
+    ];
+    const discount = 101;
+    expect(() => getTotal(param1, discount)).toThrow("Процент скидки не может быть больше 100");
+  });
+  it('checks when typeof(items.name) is Boolean, fails', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: 10,
+        name: true
+      }
+    ];
+    const discount = 10;
+    expect(() => getTotal(param1, discount)).toThrow();
+  });
+  it('checks when typeof(items.quantity) is Char, fails', () => {
+    const param1 = [
+      {
+        price: 10,
+        quantity: "q"
+      }
+    ];
+    const discount = 10;
+    expect(() => getTotal(param1, discount)).toThrow();
+  });
+  it('checks when typeof(items.price) is String, fails', () => {
+    const param1 = [
+      {
+        price: "price",
+        quantity: 10
+      }
+    ];
+    expect(getTotal(typeof param1.price)).toBe(Number);
+  });
+
+
+
+  /*
+  
+   * @param {[{quantity: number, name?: string, price: number}]} items
+ * @param {number} discount
+ 
+export const getTotal = (items = [], discount = 0) => {
+
+  const total = items.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
+  return total - (total * discount) / 100;
+};
+  
+  */ 
 });
