@@ -72,7 +72,69 @@ describe('fullTrim function', () => {
     expect(fullTrim).toBeDefined();
     expect(typeof fullTrim).toBe('function');
   });
-
+  it('checks when there is no param, passes', () => {
+    expect(fullTrim()).toBe("");
+  });
+  it('checks when a param is an empty string, passes', () => {
+    expect(fullTrim("")).toBe("");
+  });
+  it('checks when a param is a string with a space, passes', () => {
+    expect(fullTrim(" ")).toBe("");
+  });
+  it('checks when there is a char in a param, passes', () => {
+    expect(fullTrim('a')).toBe("a");
+  });
+  it('checks when there is a word in a param, passes', () => {
+    expect(fullTrim("Hello")).toBe("Hello");
+  });
+  it('checks when a param includes a space before a word, passes', () => {
+    expect(fullTrim(" Hello!")).toBe("Hello!");
+  });
+  it('checks when a param includes a space after a word, passes', () => {
+    expect(fullTrim("Hello ")).toBe("Hello");
+  });
+  it('checks when a param includes 2 words separated by 1 space, passes', () => {
+    expect(fullTrim("Hello World!")).toBe("HelloWorld!");
+  });
+  it('checks when a param includes 3 words separated by 2 spaces , passes', () => {
+    expect(fullTrim("Hello World Again!")).toBe("HelloWorldAgain!");
+  });
+  it('checks when a param includes only N spaces, passes', () => {
+    expect(fullTrim("       ")).toBe("");
+  });
+  it('checks when a param includes special chars separated by spaces, passes', () => {
+    expect(fullTrim("~ ! @ # $ % ^ & * ( ) - _ = + } { [ ] : ; ' / ? > < , .")).toBe("~!@#$%^&*()-_=+}{[]:;'/?><,.");
+  });
+  it('checks when a param includes only a horizontal tab character, passes', () => {
+    expect(fullTrim("ParamIncludes\tAHorizontalTabCharacter")).toBe("ParamIncludesAHorizontalTabCharacter");
+  });
+  it('checks when a param includes only a vertical tab character, passes', () => {
+    expect(fullTrim("ParamIncludes\vAVerticalTabCharacter")).toBe("ParamIncludesAVerticalTabCharacter");
+  });
+  it('checks when a param includes only a carriage return character, passes', () => {
+    expect(fullTrim("ParamIncludes\rACarriageReturnCharacter")).toBe("ParamIncludesACarriageReturnCharacter");
+  });
+  it('checks when a param includes only a new line character, passes', () => {
+    expect(fullTrim("ParamIncludes\nANewLineCharacter")).toBe("ParamIncludesANewLineCharacter");
+  });
+  it('checks when a param includes only a form feed character, passes', () => {
+    expect(fullTrim("ParamIncludes\fAFormFeedCharacter")).toBe("ParamIncludesAFormFeedCharacter");
+  });
+  it('checks when param == null, passes', () => {
+    expect(fullTrim(null)).toBe("");
+  });
+  it('checks when param == undefined, passes', () => {
+    expect(fullTrim(undefined)).toBe("");
+  });
+  it('checks when param == NaN, passes', () => {
+    expect(fullTrim(NaN)).toBe("");
+  });
+  it('checks when typeof(param) is Number, fails', () => {
+    expect(() => fullTrim(1111)).toThrow();
+  });
+  it('checks when typeof(param) is Boolean, fails', () => {
+    expect(() => fullTrim(true)).toThrow();
+  });
 
   // export const fullTrim = (text) => (text || "").replace(/\s/g, "");
 });
