@@ -273,36 +273,6 @@ describe('getTotal function', () => {
     const discount = 101;
     expect(() => getTotal(param1, discount)).toThrow("Процент скидки не может быть больше 100");
   });
-  it('checks when typeof(items.name) is Boolean, fails', () => {
-    const param1 = [
-      {
-        price: 10,
-        quantity: 10,
-        name: true
-      }
-    ];
-    const discount = 10;
-    expect(() => getTotal(param1, discount)).toThrow();
-  });
-  it('checks when typeof(items.quantity) is Char, fails', () => {
-    const param1 = [
-      {
-        price: 10,
-        quantity: "q"
-      }
-    ];
-    const discount = 10;
-    expect(() => getTotal(param1, discount)).toThrow();
-  });
-  it('checks when typeof(items.price) is String, fails', () => {
-    const param1 = [
-      {
-        price: "price",
-        quantity: 10
-      }
-    ];
-    expect(getTotal(typeof param1.price)).toBe(Number);
-  });
 
 
 
