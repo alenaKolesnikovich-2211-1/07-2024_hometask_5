@@ -135,8 +135,6 @@ describe('fullTrim function', () => {
   it('checks when typeof(param) is Boolean, fails', () => {
     expect(() => fullTrim(true)).toThrow();
   });
-
-  // export const fullTrim = (text) => (text || "").replace(/\s/g, "");
 });
 
 describe('getTotal function', () => {
@@ -272,22 +270,5 @@ describe('getTotal function', () => {
     ];
     const discount = 101;
     expect(() => getTotal(param1, discount)).toThrow("Процент скидки не может быть больше 100");
-  });
-
-
-
-  /*
-  
-   * @param {[{quantity: number, name?: string, price: number}]} items
- * @param {number} discount
- 
-export const getTotal = (items = [], discount = 0) => {
-
-  const total = items.reduce((acc, item) => {
-    return acc + item.price * item.quantity;
-  }, 0);
-  return total - (total * discount) / 100;
-};
-  
-  */ 
+  }); 
 });
