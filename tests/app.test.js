@@ -68,13 +68,18 @@ describe('nameIsValid function', () => {
 });
 
 describe('nameIsValid() : parameterized test', () => {
-  test.each([
+  const testCases_positive = [
     ["ab", true],
     ["abc", true],
     ["abcdefghijklmnopqrstuvwxyz", true],
     ["abcabcabc", true],
     ["abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", true],
-    ["false", true],
+    ["false", true]
+  ];
+  test.each(testCases_positive)('%s %s', (value, res) => {
+    expect(nameIsValid(value)).toBe(res);
+  });
+  const testCases_negative = [
     ["", false],
     [undefined, false],
     ["a", false],
@@ -89,7 +94,8 @@ describe('nameIsValid() : parameterized test', () => {
     ["aBc", false],
     [" mkl", false],
     ["frg ", false]
-  ])('%s %s', (value, res) => {
+  ];
+  test.each(testCases_negative)('%s %s', (value, res) => {
     expect(nameIsValid(value)).toBe(res);
   });
 });
