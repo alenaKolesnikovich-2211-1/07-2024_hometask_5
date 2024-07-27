@@ -67,6 +67,33 @@ describe('nameIsValid function', () => {
   });
 });
 
+describe('nameIsValid() : parameterized test', () => {
+  test.each([
+    ["ab", true],
+    ["abc", true],
+    ["abcdefghijklmnopqrstuvwxyz", true],
+    ["abcabcabc", true],
+    ["abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz", true],
+    ["false", true],
+    ["", false],
+    [undefined, false],
+    ["a", false],
+    ["ab1", false],
+    ["111", false],
+    [111, false],
+    ["qw@", false],
+    ["сумма", false],
+    ["sosмч", false],
+    ["sos sos", false],
+    ["a_b", false],
+    ["aBc", false],
+    [" mkl", false],
+    ["frg ", false]
+  ])('%s %s', (value, res) => {
+    expect(nameIsValid(value)).toBe(res);
+  });
+});
+
 describe('fullTrim function', () => {
   it('fullTrim function imports properly', () => {
     expect(fullTrim).toBeDefined();
